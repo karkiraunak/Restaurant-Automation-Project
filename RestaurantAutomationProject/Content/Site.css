@@ -40,3 +40,13 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+.card {
+    background-color: #f2f2f2;
+    text-align:center;
+    padding:5px;
+    margin-bottom:10px;
+}
+#menuheading{
+    text-align:center;
+}
