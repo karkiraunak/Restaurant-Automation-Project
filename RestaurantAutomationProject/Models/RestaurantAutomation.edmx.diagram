@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c43df203a9fb405cb22b7d23b4802ebd" Name="Diagram1" >
+        <EntityTypeShape EntityType="RestaurantAutomationModel.User" Width="1.5" PointX="5.75" PointY="1.875" />
+        <EntityTypeShape EntityType="RestaurantAutomationModel.UserLogin" Width="1.5" PointX="3.5" PointY="2.5" />
+        <AssociationConnector Association="RestaurantAutomationModel.FK_User_UserLogin" />
+        <EntityTypeShape EntityType="RestaurantAutomationModel.Role" Width="1.5" PointX="1.25" PointY="2.75" />
+        <AssociationConnector Association="RestaurantAutomationModel.FK__UserLogin_Roles" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
