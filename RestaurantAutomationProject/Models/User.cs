@@ -14,6 +14,13 @@ namespace RestaurantAutomationProject.Models
     
     public partial class User
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public User()
+        {
+            this.Orders = new HashSet<Order>();
+            this.UserLogins = new HashSet<UserLogin>();
+        }
+    
         public int Id { get; set; }
         public int UserId { get; set; }
         public string FirstName { get; set; }
@@ -24,7 +31,12 @@ namespace RestaurantAutomationProject.Models
         public string City { get; set; }
         public string State { get; set; }
         public Nullable<int> Zip { get; set; }
+        public int RoleId { get; set; }
     
-        public virtual UserLogin UserLogin { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
+        public virtual Role Role { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserLogin> UserLogins { get; set; }
     }
 }

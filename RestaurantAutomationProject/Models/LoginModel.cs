@@ -14,7 +14,7 @@ namespace RestaurantAutomationProject.Models
 
         [Required(ErrorMessage = "Please Provide Username", AllowEmptyStrings = false)]
         public string Username { get; set; }
-        
+
         [Required(ErrorMessage = "Please provide password", AllowEmptyStrings = false)]
         [DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
         public string Password { get; set; }
@@ -37,6 +37,6 @@ namespace RestaurantAutomationProject.Models
 
         public int RoleId { get; set; }
 
-        
+
     }
 }

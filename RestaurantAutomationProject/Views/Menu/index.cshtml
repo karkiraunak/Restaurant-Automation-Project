@@ -13,7 +13,7 @@
 		{
 
 
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<div class="card">
 					<img class="card-img-top" src="@Html.DisplayFor(modelItem => item.ItemPhotoUrl)" width="90%" height="50%" alt="Card image cap">
 					<div class="card-body">
@@ -35,7 +35,7 @@
 							<option>12</option>
 						</select>
 						<br /><br />
-						<a href="#" id ="one" class="card-link">Add to Order</a>
+						<a href="#" id="one" class="card-link">Add to Order</a>
 					</div>
 				</div>
 			</div>
@@ -44,9 +44,9 @@
 </div>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script>
-
+    debugger
 	$(document).ready(function () {
-		$('#one').click(function () {
+		$('.one').click(function () {
 			var OrderDetailJSON = { Quantity:5}
 			$.ajax({
 				type: "POST",

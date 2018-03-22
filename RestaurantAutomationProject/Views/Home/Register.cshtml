@@ -3,7 +3,7 @@
 {
     @Html.ValidationSummary(true)
     <fieldset>
-       
+
         <legend> Register</legend>
         @Html.AntiForgeryToken()
         @if (ViewBag.Message != null)
@@ -12,43 +12,48 @@
                 @ViewBag.Message
             </div>
         }
+        
         <div>
             <div class="editor-label">
-               Email:
+                First Name:
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.FirstName)
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </div>
+        </div>
+        <div>
+
+            <div>
+                <div class="editor-label">
+                    Last Name:
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.LastName)
+                    @Html.ValidationMessageFor(model => model.LastName)
+                </div>
+            </div>
+
+            <div class="editor-label">
+                Email:
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.Username)
                 @Html.ValidationMessageFor(model => model.Username)
             </div>
         </div>
-     
+
         <div class="editor-label">
-           Password:
+            Password:
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Password)
             @Html.ValidationMessageFor(model => model.Password)
         </div>
+                
 
-        <div class="editor-label">
-            First Name:
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.FirstName)
-            @Html.ValidationMessageFor(model => model.FirstName)
-        </div>
-
-        <div class="editor-label">
-            Last Name:
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.LastName)
-            @Html.ValidationMessageFor(model => model.LastName)
-        </div>
-            
-     
-        <br/>
-       <p>
+        <br />
+        <p>
             <input type="submit" value="Submit" />
         </p>
     </fieldset>

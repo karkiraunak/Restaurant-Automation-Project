@@ -5,7 +5,7 @@
     @Html.ValidationSummary(true)
     <fieldset>
 
-        <legend> User Profile</legend>
+        <legend>Update User Profile</legend>
         @Html.AntiForgeryToken()
         @if (ViewBag.Message != null)
         {
@@ -23,36 +23,91 @@
             </div>
         </div>
 
-        <div class="editor-label">
-            Password:
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Password)
-            @Html.ValidationMessageFor(model => model.Password)
-        </div>
-
-        <div class="editor-label">
-            First Name:
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.FirstName)
-            @Html.ValidationMessageFor(model => model.FirstName)
+        <div>
+            <div class="editor-label">
+                Password:
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
         </div>
 
-        <div class="editor-label">
-            Last Name:
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.LastName)
-            @Html.ValidationMessageFor(model => model.LastName)
+        <div>
+            <div class="editor-label">
+                First Name:
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.FirstName)
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </div>
         </div>
 
+        <div>
+            <div class="editor-label">
+                Last Name:
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.LastName)
+                @Html.ValidationMessageFor(model => model.LastName)
+            </div>
+        </div>
 
-        <br />
-        <p>
-            <input type="submit" value="Submit" />
-        </p>
-    </fieldset>
+        <div>
+            <div class="editor-label">
+                Address 1:
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Address1)
+                @Html.ValidationMessageFor(model => model.Address1)
+            </div>
+        </div>
+
+        <div>
+            <div class="editor-label">
+                Address 2:
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Address2)
+                @Html.ValidationMessageFor(model => model.Address2)
+            </div>
+
+        </div>
+
+        <div>
+            <div class="editor-label">
+                City:
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.City)
+                @Html.ValidationMessageFor(model => model.City)
+            </div>
+            </div>
+
+        <div>
+            <div class="editor-label">
+                State:
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.State)
+                @Html.ValidationMessageFor(model => model.State)
+            </div>
+        </div>
+
+        <div>
+            <div class="editor-label">
+                Zip:
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Zip)
+                @Html.ValidationMessageFor(model => model.Zip)
+            </div>
+        </div>
+            <br />
+            <p>
+                <input type="submit" value="Submit" />
+            </p>
+</fieldset>
 }
 <div>
     @Html.ActionLink("Back", "Index")

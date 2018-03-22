@@ -50,18 +50,21 @@ namespace RestaurantAutomationProject.Controllers
                           
                 var userRole = repo.GetUserRoleAndId(username, password);
 
-                if (userRole.RoleId == 1)
+                if (userRole != null)
                 {
-                    return RedirectToAction("AfterLogin");
-                }
-                else if (userRole.RoleId == 2)
-                {
-                    return RedirectToAction("AfterLogin");
-                }
+                    if (userRole.RoleId == 2)
+                    {
+                        return RedirectToAction("Index", "Menu", new { userId = userRole.UserId });
+                    }
+                    else if (userRole.RoleId == 1)
+                    {
+                        return RedirectToAction("UserProfile", new { userId = userRole.UserId });
+                    }
 
-                    else 
-                {
-                    return RedirectToAction("AfterLogin");
+                    else
+                    {
+                        return RedirectToAction("Index", "Menu", new { userId = userRole.UserId });
+                    }
                 }
             }
             return View(login);
@@ -92,7 +95,7 @@ namespace RestaurantAutomationProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (RestaurantAutomationEntities db = new RestaurantAutomationEntities())
+                using (RestaurantDBEntities db = new RestaurantDBEntities())
                 {
                     var repo = new HomeRepository();
 
@@ -100,7 +103,6 @@ namespace RestaurantAutomationProject.Controllers
 
                     if (checkUser == null)
                     {
-
                         //you should check duplicate registration here 
                         // dc.Roles.Add(U);
                         // db.Entry()
@@ -110,12 +112,15 @@ namespace RestaurantAutomationProject.Controllers
                         ul.Username = login.Username;
                         ul.Password = login.Password;
                         ul.RoleId = 2;
+                        u.RoleId = 2;
                         u.FirstName = login.FirstName;
                         u.LastName = login.LastName;
+                        u.Email = login.Username;
+                        u.UserId = login.UserID;
 
                         db.Entry(ul).State = EntityState.Added;
                         db.Entry(u).State = EntityState.Added;
-
+                       
                         db.SaveChanges();
                         ModelState.Clear();
                         //  login = null;
@@ -125,60 +130,61 @@ namespace RestaurantAutomationProject.Controllers
                     else
                     {
                         ViewBag.Message = "This email already exists in the system.";
-
-                        return UserProfile();
                     }
                 }
             }
-            return UserProfile();
+            return RedirectToAction("Login", new { id = login.UserID });
         }
 
-        public ActionResult UserProfile()
+        public ActionResult UserProfile(int userId)
         {
+            var repo = new HomeRepository();
+
+            var userDetail = repo.GetUserName(userId);
+
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UserProfile(LoginModel login)
+        {
+            if (ModelState.IsValid)
+            {
+                using (RestaurantDBEntities db = new RestaurantDBEntities())
+                {
 
-        
-        //[ValidateAntiForgeryToken]
-        //public ActionResult UserProfile(LoginModel login)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        using (RestaurantAutomationEntities db = new RestaurantAutomationEntities())
-        //        {
+                    //you should check duplicate registration here 
+                    // dc.Roles.Add(U);
+                    // db.Entry()
+                    UserLogin ul = new UserLogin();
+                    User u = new User();
 
-        //            //you should check duplicate registration here 
-        //            // dc.Roles.Add(U);
-        //            // db.Entry()
-        //            UserLogin ul = new UserLogin();
-        //            User u = new User();
-
-        //            ul.Username = login.Username;
-        //           // ul.Password = login.Password;
-        //            ul.RoleId = 2;
-        //            u.FirstName = login.FirstName;
-        //            u.LastName = login.LastName;
-        //            u.Email = login.Email;
-        //            u.Address1 = login.Address1;
-        //            u.Address2 = login.Address2;
-        //            u.City = login.City;
-        //            u.State = login.State;
-        //            u.Zip = login.Zip;
-        //            u.UserId = ul.UserId;
+                    ul.Username = login.Username;
+                    // ul.Password = login.Password;
+                    ul.RoleId = 2;
+                    u.FirstName = login.FirstName;
+                    u.LastName = login.LastName;
+                    u.Email = login.Email;
+                    u.Address1 = login.Address1;
+                    u.Address2 = login.Address2;
+                    u.City = login.City;
+                    u.State = login.State;
+                    u.Zip = login.Zip;
+                    u.UserId = ul.UserId;
 
 
-        //            db.Entry(ul).State = EntityState.Modified;
-        //            db.Entry(u).State = EntityState.Modified;
+                    db.Entry(ul).State = EntityState.Modified;
+                    db.Entry(u).State = EntityState.Modified;
 
-        //            db.SaveChanges();
-        //            ModelState.Clear();
-        //            //  login = null;
-        //            ViewBag.Message = "Successfully Registration Done";
-        //        }
-        //    }
-        //    return View(login);
-        //}
+                    db.SaveChanges();
+                    ModelState.Clear();
+                    //  login = null;
+                    ViewBag.Message = "Successfully Registration Done";
+                }
+            }
+            return View(login);
+        }
 
     }
 }
