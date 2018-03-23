@@ -12,16 +12,17 @@ namespace RestaurantAutomationProject.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ItemType
+    public partial class Category
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ItemType()
+        public Category()
         {
             this.Items = new HashSet<Item>();
         }
     
-        public int ItemTypeNo { get; set; }
-        public string TypeName { get; set; }
+        public int Id { get; set; }
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Item> Items { get; set; }

@@ -14,9 +14,10 @@ namespace RestaurantAutomationProject.Models
     
     public partial class OrderDetail
     {
-        public int OrderDetailNo { get; set; }
-        public int OrderNo { get; set; }
-        public int ItemNo { get; set; }
+        public int Id { get; set; }
+        public int OrderDetailId { get; set; }
+        public int OrderId { get; set; }
+        public int ItemId { get; set; }
         public int Quantity { get; set; }
     
         public virtual Item Item { get; set; }

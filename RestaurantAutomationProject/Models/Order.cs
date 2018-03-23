@@ -20,14 +20,16 @@ namespace RestaurantAutomationProject.Models
             this.OrderDetails = new HashSet<OrderDetail>();
         }
     
-        public int OrderNo { get; set; }
+        public int Id { get; set; }
+        public int OrderId { get; set; }
         public System.DateTime OrderDate { get; set; }
         public int Subtotal { get; set; }
         public int Tax { get; set; }
         public int TotalAmount { get; set; }
-        public int CustomerNo { get; set; }
-        public Nullable<int> TableNo { get; set; }
+        public int CustomerId { get; set; }
+        public Nullable<int> UserId { get; set; }
     
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }

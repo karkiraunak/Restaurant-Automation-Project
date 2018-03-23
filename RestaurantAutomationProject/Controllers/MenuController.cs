@@ -20,11 +20,11 @@ namespace RestaurantAutomationProject.Controllers
 
 			List<MenuViewModel> itemListVM = itemList.Select(x => new MenuViewModel
 			{
-				ItemNo = x.ItemNo,
+				ItemNo = x.CategoryId,
 				ItemName = x.ItemName,
 				ItemPrice = x.ItemPrice,
 				ItemPhotoUrl = x.ItemPhotoUrl,
-				ItemType = x.ItemType.TypeName
+				ItemType = x.CategoryId.ToString(),
 				
 			}).ToList();
 

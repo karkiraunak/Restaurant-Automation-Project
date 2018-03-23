@@ -13,10 +13,10 @@ namespace RestaurantAutomationProject.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class RestaurantDBEntities : DbContext
+    public partial class RestaurantAutomationEntities : DbContext
     {
-        public RestaurantDBEntities()
-            : base("name=RestaurantDBEntities")
+        public RestaurantAutomationEntities()
+            : base("name=RestaurantAutomationEntities")
         {
         }
     
@@ -25,12 +25,8 @@ namespace RestaurantAutomationProject.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<Item> Items { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserLogin> UserLogins { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
     }
 }
