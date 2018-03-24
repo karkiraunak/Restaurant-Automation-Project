@@ -159,3 +159,5 @@ RestaurantAutomationProject/Web.config
 /.vs/RestaurantAutomationProject/v15/Server/sqlite3/storage.ide
 /.vs/RestaurantAutomationProject/v15/Server/sqlite3/storage.ide-shm
 /.vs/RestaurantAutomationProject/v15/Server/sqlite3/storage.ide-wal
+/.vs/slnx.sqlite-journal
+/.vs/slnx.sqlite
