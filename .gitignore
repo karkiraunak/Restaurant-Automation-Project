@@ -21,7 +21,7 @@ build/
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
-
+*.config
 *_i.c
 *_p.c
 *.ilk
@@ -155,3 +155,7 @@ $RECYCLE.BIN/
 # Mac desktop service store files
 .DS_Store
 RestaurantAutomationProject/Web.config
+/.vs/RestaurantAutomationProject/v15/Server/sqlite3/db.lock
+/.vs/RestaurantAutomationProject/v15/Server/sqlite3/storage.ide
+/.vs/RestaurantAutomationProject/v15/Server/sqlite3/storage.ide-shm
+/.vs/RestaurantAutomationProject/v15/Server/sqlite3/storage.ide-wal

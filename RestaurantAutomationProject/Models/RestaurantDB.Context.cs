@@ -26,7 +26,7 @@ namespace RestaurantAutomationProject.Models
         }
     
         public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<Item> Items { get; set; }
+        public virtual DbSet<Item> Categories { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
