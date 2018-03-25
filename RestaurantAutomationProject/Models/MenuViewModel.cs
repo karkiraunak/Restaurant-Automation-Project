@@ -9,12 +9,12 @@ namespace RestaurantAutomationProject.Models
 	{
 		
 
-		public int ItemNo { get; set; }
+		public int ItemId{ get; set; }
 		public string ItemName { get; set; }
 		public int ItemPrice { get; set; }
 		public string ItemPhotoUrl { get; set; }
 
-		public string ItemType { get; set; }
+		public string CategoryName { get; set; }
 
 	}
 }
