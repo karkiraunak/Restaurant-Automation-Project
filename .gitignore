@@ -155,6 +155,7 @@ $RECYCLE.BIN/
 # Mac desktop service store files
 .DS_Store
 RestaurantAutomationProject/Web.config
+
 /.vs/RestaurantAutomationProject/v15/Server/sqlite3/db.lock
 /.vs/RestaurantAutomationProject/v15/Server/sqlite3/storage.ide
 /.vs/RestaurantAutomationProject/v15/Server/sqlite3/storage.ide-shm
@@ -162,3 +163,4 @@ RestaurantAutomationProject/Web.config
 /.vs/slnx.sqlite-journal
 /.vs/slnx.sqlite
 /.vs/VSWorkspaceState.json
+

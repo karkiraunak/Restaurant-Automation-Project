@@ -1,0 +1,42 @@
+﻿@model IEnumerable<RestaurantAutomationProject.Models.OrderDetailViewModel>
+
+@{
+	ViewBag.Title = "Order Details";
+}
+<div id="menuheading"><h2>Your Order Details</h2></div>
+
+
+
+<div class="container">
+	<div class="row">
+		<table class="table table-striped">
+			
+			<tr>
+				<th scope="col">SN</th>
+				<th scope="col">Item</th>
+				<th scope="col">Price</th>
+				<th scope="col">Quantity</th>
+			</tr>
+			
+			@{
+				int sn = 1;
+
+				foreach (var item in Model)
+				{
+
+			<tr>
+				<td>@(sn)</td>
+				<td>@Html.DisplayFor(x => item.ItemName)</td>
+				<td>@Html.DisplayFor(x => item.Price)</td>
+				<td>@Html.DisplayFor(x => item.Quantity)</td>
+			</tr>
+				sn = sn + 1;
+
+			}
+				}
+  
+		</table>
+
+	</div>
+</div>
+

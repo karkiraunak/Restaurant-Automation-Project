@@ -18,7 +18,7 @@
 						<h5 class="card-title">@Html.DisplayFor(modelItem => item.ItemName)</h5>
 						<h6 class="card-subtitle">$ @Html.DisplayFor(modelItem => item.ItemPrice)</h6>
 						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						Qty <select class="selectpicker">
+						Qty <select id = "@("itemqty" + item.ItemId)" class="selectpicker">  
 							<option>1</option>
 							<option>2</option>
 							<option>3</option>
@@ -33,7 +33,7 @@
 							<option>12</option>
 						</select>
 						<br /><br />
-						<a href="#" id="one" class="card-link">Add to Order</a>
+						<button id="@("item" + item.ItemId)" class="addToOrder" >Add to Order</button>
 					</div>
 				</div>
 			</div>
@@ -43,19 +43,25 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script>
 	$(document).ready(function () {
-		$('.one').click(function () {
-			var OrderDetailJSON = { Quantity:5}
-			$.ajax({
-				type: "POST",
-				contentType: "application/json; charset-utf-8",
-				data: "{OrderDetailJSON:" + JSON.stringify(OrderDetailJSON) + "}",
-				url: "/Menu/PostOrder",
-				success: function () {
-					console.log('success');
-				}
-			})
-		})
-	});
 
+		$(".addToOrder").click(function () {
+
+			var itemId = $(this).attr('id').charAt(4);      // ItemId of the item                                    
+			var itemQty = $("#itemqty" + itemId).val();     // quantity of the item chosen by user
+			var OrderDetailJSON = { ItemId: itemId, Quantity: itemQty }
+		
+				$.ajax({
+					type: "POST",
+					contentType: "application/json; charset-utf-8",
+					data: "{OrderDetailJSON:" + JSON.stringify(OrderDetailJSON) + "}",   // ajax call to populate order table and orderdetail table on click of add to order button
+					url: "/Menu/PostOrder",
+					success: function () {
+						alert("added");
+						
+					}
+				})
+			
+		});
+	});
 	
 </script>

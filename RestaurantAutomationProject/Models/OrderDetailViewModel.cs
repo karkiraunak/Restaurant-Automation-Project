@@ -7,9 +7,12 @@ namespace RestaurantAutomationProject.Models
 {
 	public class OrderDetailViewModel
 	{
-		public int OrderDetailNo { get; set; }
-		public int OrderNo { get; set; }
-		public int ItemNo { get; set; }
+		public int OrderDetailId { get; set; }
+		public int OrderId { get; set; }
+		public int ItemId { get; set; }
 		public int Quantity { get; set; }
+
+		public string ItemName { get; set; }
+		public int Price { get; set; }
 	}
 }
