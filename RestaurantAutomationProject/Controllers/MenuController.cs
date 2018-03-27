@@ -20,7 +20,9 @@ namespace RestaurantAutomationProject.Controllers
 
 			List<MenuViewModel> itemListVM = itemList.Select(x => new MenuViewModel
 			{
+
 				ItemId = x.ItemId,
+
 				ItemName = x.ItemName,
 				ItemPrice = x.ItemPrice,
 				ItemPhotoUrl = x.ItemPhotoUrl,
@@ -97,6 +99,14 @@ namespace RestaurantAutomationProject.Controllers
 
 
 			}
+
+
+			OrderDetailViewModel OrderDetailVM = new OrderDetailViewModel();
+			OrderDetailVM.OrderId = 1;
+			OrderDetailVM.OrderDetailId = 1;
+			OrderDetailVM.OrderId = 1;
+			OrderDetailVM.Quantity = OrderDetailJSON.Quantity;
+			Console.WriteLine("hello" + OrderDetailVM.Quantity);
 
 			return Json ("OrderDetailJSON.Quantity");
 		}
