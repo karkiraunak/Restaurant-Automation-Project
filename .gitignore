@@ -154,3 +154,8 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+RestaurantAutomationProject/Web.config
+/.vs/RestaurantAutomationProject/v15/Server/sqlite3
+/.vs/config
+*.json
+*.sqlite

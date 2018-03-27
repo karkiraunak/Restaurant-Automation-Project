@@ -1,0 +1,70 @@
+﻿@model IEnumerable<RestaurantAutomationProject.Models.MenuViewModel>
+
+@{
+	ViewBag.Title = "Menu";
+}
+<div id="menuheading"><h2>Choose from variety of declicious food</h2></div>
+
+
+
+<div class="container">
+	<div class="row">
+		@foreach (var item in Model)
+		{
+
+
+			<div class="col-md-3">
+				<div class="card">
+					<img class="card-img-top" src="@Html.DisplayFor(modelItem => item.ItemPhotoUrl)" width="90%" height="50%" alt="Card image cap">
+					<div class="card-body">
+						<h5 class="card-title">@Html.DisplayFor(modelItem => item.ItemName)</h5>
+						<h6 class="card-subtitle">$ @Html.DisplayFor(modelItem => item.ItemPrice)</h6>
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						Qty <select id = "@("itemqty" + item.ItemId)" class="selectpicker">  
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+							<option>5</option>
+							<option>6</option>
+							<option>7</option>
+							<option>8</option>
+							<option>9</option>
+							<option>10</option>
+							<option>11</option>
+							<option>12</option>
+						</select>
+						<br /><br />
+						<button id="@("item" + item.ItemId)" class="addToOrder" >Add to Order</button>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+
+	$(document).ready(function () {
+
+		$(".addToOrder").click(function () {
+
+			var itemId = $(this).attr('id').charAt(4);      // ItemId of the item                                    
+			var itemQty = $("#itemqty" + itemId).val();     // quantity of the item chosen by user
+			var OrderDetailJSON = { ItemId: itemId, Quantity: itemQty }
+		
+				$.ajax({
+					type: "POST",
+					contentType: "application/json; charset-utf-8",
+					data: "{OrderDetailJSON:" + JSON.stringify(OrderDetailJSON) + "}",   // ajax call to populate order table and orderdetail table on click of add to order button
+					url: "/Menu/PostOrder",
+					success: function () {
+						alert("added");
+						
+					}
+				})
+			
+		});
+	});
+	
+</script>
