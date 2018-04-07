@@ -28,6 +28,22 @@ namespace RestaurantAutomationProject.Controllers
 				
 			}).ToList();
 
+			var UserId = 0;  // find from session later
+
+			var OrderId = db.Orders.Where(o => o.CustomerId == UserId && o.OrderStatus == 0)
+								   .Select(o => o.OrderId)
+								   .DefaultIfEmpty(0)
+								   .Max();                    // check unconfirmed order of the user
+
+			if (OrderId != 0)   // if user has unconfirmed order
+			{
+				ViewBag.ShowConfirm = true;  // show confirm button in menu 
+			}
+			else
+			{
+				ViewBag.ShowConfirm = false;
+			}
+
 			return View(itemListVM);
 		}
 
@@ -98,7 +114,7 @@ namespace RestaurantAutomationProject.Controllers
 
 			}
 
-			return Json ("OrderDetailJSON.Quantity");
+			return Json ("success");
 		}
 	}
 }

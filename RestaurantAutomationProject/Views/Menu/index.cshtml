@@ -3,8 +3,24 @@
 @{
 	ViewBag.Title = "Menu";
 }
-<div id="menuheading"><h2>Choose from variety of declicious food</h2></div>
+<div id="menuheading">
+	<p id="heading">Choose From Variety Of Delicious Food</p>
+	@Html.Hidden("RedirectTo", Url.Action("index", "OrderDetail")); <!--redirect to order detail once confirm order is clicked-->
+	@Html.Hidden("RedirectTo1", Url.Action("index", "OrderStatus"));
+	@if (ViewBag.ShowConfirm)
+	{
+		<button id="quickorder" style="display : block;">Quick Order</button> <!---->
+		<button id="verifyorder" style="display : block;">Verify Order</button>
+	}
+	else
+	{
+		<button id="quickorder" style="display : none;">Quick Order</button>
+		<button id="verifyorder" style="display : none;">Verify Order</button>
+	}
 
+
+
+</div>
 
 
 <div class="container">
@@ -59,11 +75,40 @@
 					data: "{OrderDetailJSON:" + JSON.stringify(OrderDetailJSON) + "}",   // ajax call to populate order table and orderdetail table on click of add to order button
 					url: "/Menu/PostOrder",
 					success: function () {
-						alert("added");
+						$("#quickorder").css("display", "block");
+						$("#verifyorder").css("display", "block");
 						
 					}
 				})
 			
+		});   //end of addToOrder
+
+		$("#quickorder").click(function () {
+
+			alert("hello");
+
+		//	var ConfirmOrderJSON = { confirm: "confirm" };
+
+			$.ajax({
+				type: "POST",
+				contentType: "application/json; charset-utf-8",
+				url: "/Order/PostOrder",
+				success: function () {
+
+					var url = $("#RedirectTo1").val();
+					location.href = url;
+					
+
+				}
+			})
+
+		}); 
+
+		$("#verifyorder").click(function () {
+			
+
+			var url = $("#RedirectTo").val();
+			location.href = url;
 		});
 	});
 	

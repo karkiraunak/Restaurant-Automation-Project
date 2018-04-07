@@ -3,40 +3,87 @@
 @{
 	ViewBag.Title = "Order Details";
 }
-<div id="menuheading"><h2>Your Order Details</h2></div>
 
+<div id="odheading">
+	<p>Your Order Detail</p>
+	<button id="confirmorder">Confirm Order</button>
 
+</div>
 
 <div class="container">
 	<div class="row">
 		<table class="table table-striped">
-			
+
 			<tr>
 				<th scope="col">SN</th>
 				<th scope="col">Item</th>
 				<th scope="col">Price</th>
 				<th scope="col">Quantity</th>
+				<th scope="col"></th>
 			</tr>
-			
+
 			@{
 				int sn = 1;
 
 				foreach (var item in Model)
 				{
 
-			<tr>
-				<td>@(sn)</td>
-				<td>@Html.DisplayFor(x => item.ItemName)</td>
-				<td>@Html.DisplayFor(x => item.Price)</td>
-				<td>@Html.DisplayFor(x => item.Quantity)</td>
-			</tr>
-				sn = sn + 1;
-
-			}
+					<tr>
+						<td>@(sn)</td>
+						<td>@Html.DisplayFor(x => item.ItemName)</td>
+						<td>@Html.DisplayFor(x => item.Price)</td>
+						<td>@Html.DisplayFor(x => item.Quantity)</td>
+						<td><span id = "@("del" + item.ItemId)" class="glyphicon glyphicon-trash del" aria-hidden="true"></span></td>
+					</tr>
+					sn = sn + 1;
+					
 				}
-  
+			}
+
 		</table>
 
 	</div>
 </div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+
+	$(document).ready(function () {
+
+		$(".del").click(function () {
+
+			var itemId = $(this).attr('id').charAt(3);      // ItemId of the item    id = del1, del2 etc so itemid = 1 
+
+			
+			var OrderDetailDeleteJSON = { ItemId: itemId }
+
+				$.ajax({
+					type: "POST",
+					contentType: "application/json; charset-utf-8",
+					data: "{OrderDetailDeleteJSON:" + JSON.stringify(OrderDetailDeleteJSON) + "}",   // ajax call to populate order table and orderdetail table on click of add to order button
+					url: "/OrderDetail/DeleteOrderDetail",
+					success: function () {		
+						location.reload();
+					}
+				})
+			
+		});  //end of del
+
+		$("#confirmorder").click(function () {
+
+			$.ajax({
+				type: "POST",
+				contentType: "application/json; charset-utf-8",
+				url: "/Order/PostOrder",
+				success: function (data) {
+					window.location.href = data;
+				}
+			})
+
+		}); 
+
+	});
+
+</script>
+
 

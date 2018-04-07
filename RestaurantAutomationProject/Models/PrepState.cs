@@ -12,23 +12,18 @@ namespace RestaurantAutomationProject.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Item
+    public partial class PrepState
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Item()
+        public PrepState()
         {
             this.OrderDetails = new HashSet<OrderDetail>();
         }
     
         public int Id { get; set; }
-        public int ItemId { get; set; }
-        public string ItemName { get; set; }
-        public int ItemPrice { get; set; }
-        public string ItemPhotoUrl { get; set; }
-        public int CategoryId { get; set; }
-        public Nullable<int> ItemPrepTime { get; set; }
+        public int PrepStateId { get; set; }
+        public string State { get; set; }
     
-        public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }

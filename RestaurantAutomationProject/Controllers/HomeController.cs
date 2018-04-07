@@ -52,11 +52,11 @@ namespace RestaurantAutomationProject.Controllers
 
                 if (userRole != null)
                 {
-                    if (userRole.RoleId == 2)
+                    if (userRole.RoleId == 1)
                     {
                         return RedirectToAction("Index", "Menu", new { userId = userRole.UserId });
                     }
-                    else if (userRole.RoleId == 1)
+                    else if (userRole.RoleId == 2)
                     {
                         return RedirectToAction("UserProfile", new { userId = userRole.UserId });
                     }
