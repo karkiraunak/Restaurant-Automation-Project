@@ -27,8 +27,6 @@
 	<div class="row">
 		@foreach (var item in Model)
 		{
-
-
 			<div class="col-md-3">
 				<div class="card">
 					<img class="card-img-top" src="@Html.DisplayFor(modelItem => item.ItemPhotoUrl)" width="90%" height="50%" alt="Card image cap">
@@ -60,7 +58,6 @@
 </div>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script>
-
 	$(document).ready(function () {
 
 		$(".addToOrder").click(function () {
