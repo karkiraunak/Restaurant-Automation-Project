@@ -28,15 +28,36 @@ namespace RestaurantAutomationProject.Controllers
 
 			List<OrderDetailViewModel> orderDetailsListVM = orderDetailsList.Select(x => new OrderDetailViewModel
 			{
-				
+				ItemId = x.ItemId,
 				ItemName = x.Item.ItemName,
 				Price = x.Item.ItemPrice,
-				Quantity = x.Quantity
+				Quantity = x.Quantity,
 
 			}).ToList();
 
 			return View(orderDetailsListVM);
 			
+		}
+		public JsonResult DeleteOrderDetail (OrderDetailViewModel OrderDetailDeleteJSON)  // delete item from OrderDEtail 
+		{
+			RestaurantDBEntities db = new RestaurantDBEntities();
+
+			Order order = new Order();
+			var UserId = 0;  // find from session later
+
+			var ItemId = OrderDetailDeleteJSON.ItemId;
+
+			var OrderId = db.Orders.Where(o => o.CustomerId == UserId && o.OrderStatus == 0)
+								   .Select(o => o.OrderId)
+								   .DefaultIfEmpty(0)
+								   .Max();
+
+			OrderDetail orderDetail = new OrderDetail();
+
+			orderDetail = db.OrderDetails.FirstOrDefault(o => o.ItemId == ItemId && o.OrderId == OrderId);
+			db.OrderDetails.Remove(orderDetail);
+			db.SaveChanges(); 
+			return Json("success");
 		}
 	}
 }

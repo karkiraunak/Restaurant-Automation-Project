@@ -47,6 +47,45 @@ input[type="checkbox"].input-validation-error {
     padding:5px;
     margin-bottom:10px;
 }
+
 #menuheading{
-    text-align:center;
+    width:100%;
+    height:60px;
+    position:relative;
+   
+}
+#heading{
+    position:absolute;
+    left:35%;
+    top:15%;
+    font-size:x-large;
+ 
+}
+#quickorder{
+    position:absolute;
+    right: 1.4%;
+    top:25%;
+    color:red;
+}
+#verifyorder {
+    position: absolute;
+    right: 10%;
+    top: 25%;
+    color: red;
+}
+#odheading{
+ 
+    position:relative;
+    height:50px;
+}
+#odheading p{
+    position:absolute;
+    font-size:x-large;
+    left:45%;
+    top:10%;
+}
+#confirmorder{
+    position:absolute;
+    right:0%;
+    top:25%;
 }
