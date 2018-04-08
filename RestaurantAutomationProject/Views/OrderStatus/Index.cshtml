@@ -1,0 +1,43 @@
+﻿@model IEnumerable<RestaurantAutomationProject.Models.OrderDetailViewModel>
+
+@{
+	ViewBag.Title = "Order Status";
+}
+
+<div id="odheading">
+	<p>Your Order Status</p>
+</div>
+
+<div class="container">
+	<div class="row">
+		<table class="table table-striped">
+
+			<tr>
+				<th scope="col">SN</th>
+				<th scope="col">Item</th>
+				<th scope="col">Status</th>
+				
+			</tr>
+
+			@{
+				int sn = 1;
+
+				foreach (var item in Model)
+				{
+
+					<tr>
+						<td>@(sn)</td>
+						<td>@Html.DisplayFor(x => item.ItemName)</td>
+						<td>@Html.DisplayFor(x => item.PrepState)</td>
+						
+					</tr>
+					sn = sn + 1;
+
+				}
+			}
+
+		</table>
+
+	</div>
+</div>
+
