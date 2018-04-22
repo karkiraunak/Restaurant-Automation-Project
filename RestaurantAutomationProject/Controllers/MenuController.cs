@@ -28,12 +28,16 @@ namespace RestaurantAutomationProject.Controllers
 				
 			}).ToList();
 
+			var Categories = itemListVM.Select(i => i.CategoryName).Distinct().ToList();  // list of unique category name
+
 			var UserId = 0;  // find from session later
 
 			var OrderId = db.Orders.Where(o => o.CustomerId == UserId && o.OrderStatus == 0)
 								   .Select(o => o.OrderId)
 								   .DefaultIfEmpty(0)
 								   .Max();                    // check unconfirmed order of the user
+
+			ViewBag.CategoryList = Categories;
 
 			if (OrderId != 0)   // if user has unconfirmed order
 			{

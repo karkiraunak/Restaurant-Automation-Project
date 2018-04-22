@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RestaurantDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RestaurantDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryId" />
@@ -23,6 +23,7 @@
           <Property Name="ItemPrice" Type="int" Nullable="false" />
           <Property Name="ItemPhotoUrl" Type="varchar" MaxLength="50" />
           <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="ItemPrepTime" Type="int" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -36,6 +37,7 @@
           <Property Name="TotalAmount" Type="int" Nullable="false" />
           <Property Name="CustomerId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="int" />
+          <Property Name="OrderStatus" Type="int" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -46,6 +48,15 @@
           <Property Name="OrderId" Type="int" Nullable="false" />
           <Property Name="ItemId" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="PrepStateId" Type="int" />
+        </EntityType>
+        <EntityType Name="PrepState">
+          <Key>
+            <PropertyRef Name="PrepStateId" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PrepStateId" Type="int" Nullable="false" />
+          <Property Name="State" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -80,6 +91,18 @@
           <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK__OrderDeta__PrepS__656C112C">
+          <End Role="PrepState" Type="Self.PrepState" Multiplicity="0..1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrepState">
+              <PropertyRef Name="PrepStateId" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="PrepStateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Item_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="Item" Type="Self.Item" Multiplicity="*" />
@@ -157,9 +180,14 @@
           <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrepState" EntityType="Self.PrepState" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserLogin" EntityType="Self.UserLogin" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__OrderDeta__PrepS__656C112C" Association="Self.FK__OrderDeta__PrepS__656C112C">
+            <End Role="PrepState" EntitySet="PrepState" />
+            <End Role="OrderDetail" EntitySet="OrderDetail" />
+          </AssociationSet>
           <AssociationSet Name="FK_Item_Category" Association="Self.FK_Item_Category">
             <End Role="Category" EntitySet="Category" />
             <End Role="Item" EntitySet="Item" />
@@ -221,7 +249,12 @@
             <End Role="User" EntitySet="Users" />
             <End Role="UserLogin" EntitySet="UserLogins" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="PrepStates" EntityType="RestaurantDBModel.PrepState" />
+          <AssociationSet Name="FK__OrderDeta__PrepS__656C112C" Association="RestaurantDBModel.FK__OrderDeta__PrepS__656C112C">
+            <End Role="PrepState" EntitySet="PrepStates" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryId" />
@@ -243,6 +276,7 @@
           <Property Name="CategoryId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Category" Relationship="RestaurantDBModel.FK_Item_Category" FromRole="Item" ToRole="Category" />
           <NavigationProperty Name="OrderDetails" Relationship="RestaurantDBModel.FK_OrderDetail_Item" FromRole="Item" ToRole="OrderDetail" />
+          <Property Name="ItemPrepTime" Type="Int32" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -258,6 +292,7 @@
           <Property Name="UserId" Type="Int32" />
           <NavigationProperty Name="User" Relationship="RestaurantDBModel.FK_Order_User" FromRole="Order" ToRole="User" />
           <NavigationProperty Name="OrderDetails" Relationship="RestaurantDBModel.FK_OrderDetail_Order" FromRole="Order" ToRole="OrderDetail" />
+          <Property Name="OrderStatus" Type="Int32" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -270,6 +305,8 @@
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Item" Relationship="RestaurantDBModel.FK_OrderDetail_Item" FromRole="OrderDetail" ToRole="Item" />
           <NavigationProperty Name="Order" Relationship="RestaurantDBModel.FK_OrderDetail_Order" FromRole="OrderDetail" ToRole="Order" />
+          <Property Name="PrepStateId" Type="Int32" />
+          <NavigationProperty Name="PrepState" Relationship="RestaurantDBModel.FK__OrderDeta__PrepS__656C112C" FromRole="OrderDetail" ToRole="PrepState" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -381,6 +418,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PrepState">
+          <Key>
+            <PropertyRef Name="PrepStateId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PrepStateId" Type="Int32" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OrderDetails" Relationship="RestaurantDBModel.FK__OrderDeta__PrepS__656C112C" FromRole="PrepState" ToRole="OrderDetail" />
+        </EntityType>
+        <Association Name="FK__OrderDeta__PrepS__656C112C">
+          <End Type="RestaurantDBModel.PrepState" Role="PrepState" Multiplicity="0..1" />
+          <End Type="RestaurantDBModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrepState">
+              <PropertyRef Name="PrepStateId" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="PrepStateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -399,6 +457,7 @@
           <EntitySetMapping Name="Items">
             <EntityTypeMapping TypeName="RestaurantDBModel.Item">
               <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="ItemPrepTime" ColumnName="ItemPrepTime" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="ItemPhotoUrl" ColumnName="ItemPhotoUrl" />
                 <ScalarProperty Name="ItemPrice" ColumnName="ItemPrice" />
@@ -411,6 +470,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="RestaurantDBModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
@@ -425,6 +485,7 @@
           <EntitySetMapping Name="OrderDetails">
             <EntityTypeMapping TypeName="RestaurantDBModel.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetail">
+                <ScalarProperty Name="PrepStateId" ColumnName="PrepStateId" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="ItemId" ColumnName="ItemId" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
@@ -465,6 +526,15 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrepStates">
+            <EntityTypeMapping TypeName="RestaurantDBModel.PrepState">
+              <MappingFragment StoreEntitySet="PrepState">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="PrepStateId" ColumnName="PrepStateId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

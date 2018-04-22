@@ -4,18 +4,18 @@
 	ViewBag.Title = "Menu";
 }
 <div id="menuheading">
-	<p id="heading">Choose From Variety Of Delicious Food</p>
-	@Html.Hidden("RedirectTo", Url.Action("index", "OrderDetail")); <!--redirect to order detail once confirm order is clicked-->
-	@Html.Hidden("RedirectTo1", Url.Action("index", "OrderStatus"));
+	<p id="heading"></p>
+	@Html.Hidden("RedirectTo", Url.Action("index", "OrderDetail")) <!--redirect to order detail once confirm order is clicked-->
+	@Html.Hidden("RedirectTo1", Url.Action("index", "OrderStatus"))
 	@if (ViewBag.ShowConfirm)
 	{
-		<button id="quickorder" style="display : block;">Quick Order</button> <!---->
-		<button id="verifyorder" style="display : block;">Verify Order</button>
+		<button id="quickorder" style="display : block;" class="btn btn-primary btn-sm">Quick Order</button> <!---->
+		<button id="verifyorder" style="display : block;" class="btn btn-primary btn-sm">Verify Order</button>
 	}
 	else
 	{
-		<button id="quickorder" style="display : none;">Quick Order</button>
-		<button id="verifyorder" style="display : none;">Verify Order</button>
+		<button id="quickorder" style="display : none;" type="button" class="btn btn-primary btn-sm">Quick Order</button>
+		<button id="verifyorder" style="display : none;" type="button" class="btn btn-primary btn-sm">Verify Order</button>
 	}
 
 
@@ -25,13 +25,15 @@
 
 <div class="container">
 	<div class="row">
-		@foreach (var item in Model)
+		@foreach (var cat in ViewBag.CategoryList)
+		{
+		foreach (var item in Model)
 		{
 
 
 			<div class="col-md-3">
 				<div class="card">
-					<img class="card-img-top" src="@Html.DisplayFor(modelItem => item.ItemPhotoUrl)" width="90%" height="50%" alt="Card image cap">
+					<img class="card-img-top" src="@Html.DisplayFor(modelItem => item.ItemPhotoUrl)" alt="Card image cap">
 					<div class="card-body">
 						<h5 class="card-title">@Html.DisplayFor(modelItem => item.ItemName)</h5>
 						<h6 class="card-subtitle">$ @Html.DisplayFor(modelItem => item.ItemPrice)</h6>
@@ -51,10 +53,11 @@
 							<option>12</option>
 						</select>
 						<br /><br />
-						<button id="@("item" + item.ItemId)" class="addToOrder" >Add to Order</button>
+						<button id="@("item" + item.ItemId)" type="button" class="addToOrder btn btn-primary btn-sm">Add to Order</button>
 					</div>
 				</div>
 			</div>
+		}
 		}
 	</div>
 </div>
@@ -83,10 +86,24 @@
 			
 		});   //end of addToOrder
 
+		// Type writer effect in menu page 
+
+		var chars = 'Hunger Tip : Just click Add To Order and click Quick Order'.split('');
+		var container = document.getElementById("heading");
+
+		var i = 0;
+		setInterval(function () {
+			if (i < chars.length) {
+				container.innerHTML += chars[i++];
+			} else {
+				i = 0;
+				container.innerHTML = "";
+			}
+		}, 60);
+		
 		$("#quickorder").click(function () {
 
-			alert("hello");
-
+			
 		//	var ConfirmOrderJSON = { confirm: "confirm" };
 
 			$.ajax({

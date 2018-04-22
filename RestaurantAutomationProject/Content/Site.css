@@ -46,6 +46,9 @@ input[type="checkbox"].input-validation-error {
     text-align:center;
     padding:5px;
     margin-bottom:10px;
+    padding-bottom: 15px;
+    padding-top:15px;
+    position:relative;
 }
 
 #menuheading{
@@ -54,24 +57,25 @@ input[type="checkbox"].input-validation-error {
     position:relative;
    
 }
-#heading{
-    position:absolute;
-    left:35%;
-    top:15%;
-    font-size:x-large;
- 
+#heading {
+    position: absolute;
+    left: 30%;
+    top: 15%;
+    font-size: large;
+    font-style: italic;
+    color: #428bca;
 }
 #quickorder{
     position:absolute;
     right: 1.4%;
     top:25%;
-    color:red;
+ 
 }
 #verifyorder {
     position: absolute;
     right: 10%;
     top: 25%;
-    color: red;
+  
 }
 #odheading{
  
@@ -88,4 +92,45 @@ input[type="checkbox"].input-validation-error {
     position:absolute;
     right:0%;
     top:25%;
+}
+.navbar{
+    background-color:white;
+   
+}
+.card-title {
+    color: #428bca;
+}
+.card-subtitle {
+    color: #0000ff;
+}
+.card-img-top{
+    width:100%;
+    height:70%;
+
+}
+#login-wrapper {
+    position:relative;
+    margin-top: 20px;
+    background-color: #eee !important;
+    height: 500px;
+}
+#login-image {
+    position: relative;
+    background-color: red;
+    margin-top: 0;
+    margin-right: 0;
+    float: right;
+    height: 100%;
+    width: 50%;
+    background-image: url("/Content/Images/login-image.jpg");
+}
+#login-form-wrapper{
+    position:relative;
+    float:left;
+    width:50%;
+}
+#login-form{
+    position:relative;
+    margin-top:25%;
+    margin-left:25%;
 }
